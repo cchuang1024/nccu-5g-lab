@@ -13110,6 +13110,40 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Lab-1-3">Lab 1-3<a class="anchor-link" href="#Lab-1-3">&#182;</a></h1><p>執行 NetAnim 結果如下：</p>
+<p><img src="./lab1-3/netanim-1.png" alt=""></p>
+<p><img src="./lab1-3/netanim-2.png" alt=""></p>
+<p><img src="./lab1-3/netanim-3.png" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Lab-1-4">Lab 1-4<a class="anchor-link" href="#Lab-1-4">&#182;</a></h1><h2 id="1.-&#35430;&#26681;&#25818;&#27169;&#25836;&#21450;-NetAnim-&#30340;&#32080;&#26524;&#25944;&#36848;&#27492;&#27169;&#25836;&#36942;&#31243;&#20570;&#20102;&#21738;&#20123;&#20107;">1. &#35430;&#26681;&#25818;&#27169;&#25836;&#21450; NetAnim &#30340;&#32080;&#26524;&#25944;&#36848;&#27492;&#27169;&#25836;&#36942;&#31243;&#20570;&#20102;&#21738;&#20123;&#20107;<a class="anchor-link" href="#1.-&#35430;&#26681;&#25818;&#27169;&#25836;&#21450;-NetAnim-&#30340;&#32080;&#26524;&#25944;&#36848;&#27492;&#27169;&#25836;&#36942;&#31243;&#20570;&#20102;&#21738;&#20123;&#20107;">&#182;</a></h2><h2 id="2.-&#35531;&#21839;&#27492;&#27169;&#25836;&#36969;&#21512;&#23565;&#25033;-5G-&#19977;&#22823;&#26381;&#21209;&#22580;&#26223;-(URLLC/mMTC/eMBB)-&#30340;&#20309;&#32773;">2. &#35531;&#21839;&#27492;&#27169;&#25836;&#36969;&#21512;&#23565;&#25033; 5G &#19977;&#22823;&#26381;&#21209;&#22580;&#26223; (URLLC/mMTC/eMBB) &#30340;&#20309;&#32773;<a class="anchor-link" href="#2.-&#35531;&#21839;&#27492;&#27169;&#25836;&#36969;&#21512;&#23565;&#25033;-5G-&#19977;&#22823;&#26381;&#21209;&#22580;&#26223;-(URLLC/mMTC/eMBB)-&#30340;&#20309;&#32773;">&#182;</a></h2><p>從以下的這段設定中，可以推測這是 eMBB 的場景</p>
+<div class="highlight"><pre><span></span><span class="c1">// Create the Internet</span>
+  <span class="n">PointToPointHelper</span> <span class="n">p2ph</span><span class="p">;</span>
+  <span class="n">p2ph</span><span class="p">.</span><span class="n">SetDeviceAttribute</span><span class="p">(</span><span class="s">&quot;DataRate&quot;</span><span class="p">,</span> <span class="n">DataRateValue</span><span class="p">(</span><span class="n">DataRate</span><span class="p">(</span><span class="s">&quot;100Gb/s&quot;</span><span class="p">)));</span>
+  <span class="n">p2ph</span><span class="p">.</span><span class="n">SetDeviceAttribute</span><span class="p">(</span><span class="s">&quot;Mtu&quot;</span><span class="p">,</span> <span class="n">UintegerValue</span><span class="p">(</span><span class="mi">1500</span><span class="p">));</span>
+  <span class="n">p2ph</span><span class="p">.</span><span class="n">SetChannelAttribute</span><span class="p">(</span><span class="s">&quot;Delay&quot;</span><span class="p">,</span> <span class="n">TimeValue</span><span class="p">(</span><span class="n">Seconds</span><span class="p">(</span><span class="mf">0.010</span><span class="p">)));</span>
+</pre></div>
+<p>因</p>
+<ol>
+<li>data rate 目標為 100Gbps</li>
+<li>可容許的 delay (latency) 為 10ms (非 URLLC)</li>
+<li>實際執行時，只有 75 個 UE，遠不及 mMTC 的場景</li>
+</ol>
+<h2 id="3.-&#35531;&#21839;&#27492;&#27169;&#25836;&#20043;&#31243;&#24335;&#30908;&#20013;&#22914;&#20309;&#22686;&#21152;&#20351;&#29992;&#32773;&#25976;&#37327;">3. &#35531;&#21839;&#27492;&#27169;&#25836;&#20043;&#31243;&#24335;&#30908;&#20013;&#22914;&#20309;&#22686;&#21152;&#20351;&#29992;&#32773;&#25976;&#37327;<a class="anchor-link" href="#3.-&#35531;&#21839;&#27492;&#27169;&#25836;&#20043;&#31243;&#24335;&#30908;&#20013;&#22914;&#20309;&#22686;&#21152;&#20351;&#29992;&#32773;&#25976;&#37327;">&#182;</a></h2><div class="highlight"><pre><span></span><span class="n">Config</span><span class="o">::</span><span class="n">SetDefault</span><span class="p">(</span><span class="s">&quot;ns3::LteEnbRrc::SrsPeriodicity&quot;</span><span class="p">,</span>
+                    <span class="n">UintegerValue</span><span class="p">(</span><span class="mi">320</span><span class="p">));</span> <span class="c1">//讓ue可以增加很多</span>
+</pre></div>
+<h2 id="4.-&#35430;&#35264;&#23519;&#27492;&#27169;&#25836;&#29986;&#29983;&#20043;-txt-&#27284;&#65292;&#25944;&#36848;&#27169;&#25836;&#21487;&#33021;&#26377;&#30340;&#21839;&#38988;&#65292;&#21450;&#30456;&#23565;&#25033;&#21487;&#33021;&#30340;&#35299;&#27770;&#26041;&#27861;">4. &#35430;&#35264;&#23519;&#27492;&#27169;&#25836;&#29986;&#29983;&#20043; txt &#27284;&#65292;&#25944;&#36848;&#27169;&#25836;&#21487;&#33021;&#26377;&#30340;&#21839;&#38988;&#65292;&#21450;&#30456;&#23565;&#25033;&#21487;&#33021;&#30340;&#35299;&#27770;&#26041;&#27861;<a class="anchor-link" href="#4.-&#35430;&#35264;&#23519;&#27492;&#27169;&#25836;&#29986;&#29983;&#20043;-txt-&#27284;&#65292;&#25944;&#36848;&#27169;&#25836;&#21487;&#33021;&#26377;&#30340;&#21839;&#38988;&#65292;&#21450;&#30456;&#23565;&#25033;&#21487;&#33021;&#30340;&#35299;&#27770;&#26041;&#27861;">&#182;</a></h2>
+</div>
+</div>
+</div>
     </div>
   </div>
 </body>
